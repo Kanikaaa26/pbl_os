@@ -1,0 +1,256 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Parallel Task Scheduler - OS Project</title>
+    <link rel="stylesheet" href="css/styles.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+</head>
+<body>
+    <!-- Navigation -->
+    <nav class="navbar">
+        <div class="nav-container">
+            <div class="nav-logo">
+                <i class="fas fa-tasks"></i>
+                <span>Parallel Task Scheduler</span>
+            </div>
+            <div class="nav-links">
+                <a href="index.html" class="nav-link active">Home</a>
+                <a href="scheduler.html" class="nav-link">Scheduler</a>
+                <a href="results.html" class="nav-link">Results</a>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Hero Section -->
+    <section class="hero">
+        <div class="hero-container">
+            <div class="hero-content">
+                <div class="hero-text">
+                    <h1 class="hero-title">
+                        <span class="gradient-text">Parallel Task Scheduler</span>
+                        <br>
+                        <span class="hero-subtitle">Operating Systems Project</span>
+                    </h1>
+                    <p class="hero-description">
+                        Experience the power of modern operating system concepts through our interactive parallel task scheduling simulator.
+                        Learn how CPU scheduling algorithms work in real-time with visual analytics and performance metrics.
+                    </p>
+                    <div class="hero-features">
+                        <div class="feature-item">
+                            <i class="fas fa-clock"></i>
+                            <span>Real-time Execution</span>
+                        </div>
+                        <div class="feature-item">
+                            <i class="fas fa-chart-line"></i>
+                            <span>Performance Analytics</span>
+                        </div>
+                        <div class="feature-item">
+                            <i class="fas fa-users"></i>
+                            <span>Multi-threading</span>
+                        </div>
+                        <div class="feature-item">
+                            <i class="fas fa-brain"></i>
+                            <span>Algorithm Comparison</span>
+                        </div>
+                    </div>
+                    <div class="hero-buttons">
+                        <a href="scheduler.html" class="btn btn-primary btn-large">
+                            <i class="fas fa-play"></i>
+                            Try Scheduler
+                        </a>
+                        <a href="#about" class="btn btn-secondary btn-large">
+                            <i class="fas fa-info-circle"></i>
+                            Learn More
+                        </a>
+                    </div>
+                </div>
+                <div class="hero-visual">
+                    <div class="visual-container">
+                        <div class="cpu-visual">
+                            <div class="cpu-core core-1"></div>
+                            <div class="cpu-core core-2"></div>
+                            <div class="cpu-core core-3"></div>
+                            <div class="cpu-core core-4"></div>
+                            <div class="cpu-center">
+                                <i class="fas fa-microchip"></i>
+                            </div>
+                        </div>
+                        <div class="task-queue">
+                            <div class="queue-item task-1">
+                                <span>Task A</span>
+                                <div class="progress-bar"></div>
+                            </div>
+                            <div class="queue-item task-2">
+                                <span>Task B</span>
+                                <div class="progress-bar"></div>
+                            </div>
+                            <div class="queue-item task-3">
+                                <span>Task C</span>
+                                <div class="progress-bar"></div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="hero-bg-pattern"></div>
+    </section>
+
+    <!-- About Section -->
+    <section id="about" class="about">
+        <div class="container">
+            <div class="section-header">
+                <h2>About the Project</h2>
+                <p>Understanding Operating System Concepts Through Interactive Simulation</p>
+            </div>
+
+            <div class="about-grid">
+                <div class="about-card">
+                    <div class="card-icon">
+                        <i class="fas fa-cogs"></i>
+                    </div>
+                    <h3>Process Scheduling</h3>
+                    <p>
+                        Explore different CPU scheduling algorithms including Shortest Job First (SJF),
+                        Round Robin (RR), and Priority Scheduling. See how each algorithm affects system performance.
+                    </p>
+                </div>
+
+                <div class="about-card">
+                    <div class="card-icon">
+                        <i class="fas fa-layer-group"></i>
+                    </div>
+                    <h3>Parallel Processing</h3>
+                    <p>
+                        Understand multi-threading and parallel execution. Watch tasks run simultaneously
+                        across multiple CPU cores with real-time visualization.
+                    </p>
+                </div>
+
+                <div class="about-card">
+                    <div class="card-icon">
+                        <i class="fas fa-chart-bar"></i>
+                    </div>
+                    <h3>Performance Metrics</h3>
+                    <p>
+                        Analyze key performance indicators including CPU utilization, throughput,
+                        waiting times, and turnaround times with interactive charts.
+                    </p>
+                </div>
+
+                <div class="about-card">
+                    <div class="card-icon">
+                        <i class="fas fa-code"></i>
+                    </div>
+                    <h3>Technical Implementation</h3>
+                    <p>
+                        Built with C++ for the scheduling engine and Python Flask for the API server.
+                        Features real-time communication and data visualization.
+                    </p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Features Section -->
+    <section class="features">
+        <div class="container">
+            <div class="section-header">
+                <h2>Key Features</h2>
+                <p>Everything you need to understand CPU scheduling algorithms</p>
+            </div>
+
+            <div class="features-grid">
+                <div class="feature-card">
+                    <div class="feature-icon">
+                        <i class="fas fa-tasks"></i>
+                    </div>
+                    <h3>Task Management</h3>
+                    <p>Create custom tasks with different priorities, burst times, and resource requirements.</p>
+                </div>
+
+                <div class="feature-card">
+                    <div class="feature-icon">
+                        <i class="fas fa-play-circle"></i>
+                    </div>
+                    <h3>Real-time Execution</h3>
+                    <p>Watch tasks execute in real-time with live progress monitoring and status updates.</p>
+                </div>
+
+                <div class="feature-card">
+                    <div class="feature-icon">
+                        <i class="fas fa-chart-pie"></i>
+                    </div>
+                    <h3>Visual Analytics</h3>
+                    <p>Interactive charts showing execution times, CPU utilization, and performance metrics.</p>
+                </div>
+
+                <div class="feature-card">
+                    <div class="feature-icon">
+                        <i class="fas fa-balance-scale"></i>
+                    </div>
+                    <h3>Algorithm Comparison</h3>
+                    <p>Compare different scheduling algorithms side-by-side with benchmark results.</p>
+                </div>
+
+                <div class="feature-card">
+                    <div class="feature-icon">
+                        <i class="fas fa-file-alt"></i>
+                    </div>
+                    <h3>Detailed Logs</h3>
+                    <p>Comprehensive execution logs with timestamps, thread information, and task details.</p>
+                </div>
+
+                <div class="feature-card">
+                    <div class="feature-icon">
+                        <i class="fas fa-mobile-alt"></i>
+                    </div>
+                    <h3>Responsive Design</h3>
+                    <p>Works seamlessly on desktop, tablet, and mobile devices with modern UI.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- CTA Section -->
+    <section class="cta">
+        <div class="container">
+            <div class="cta-content">
+                <h2>Ready to Explore CPU Scheduling?</h2>
+                <p>Start your journey into operating system concepts with our interactive scheduler.</p>
+                <a href="scheduler.html" class="btn btn-primary btn-xl">
+                    <i class="fas fa-rocket"></i>
+                    Try The Scheduler
+                </a>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="footer">
+        <div class="container">
+            <div class="footer-content">
+                <div class="footer-logo">
+                    <i class="fas fa-tasks"></i>
+                    <span>Parallel Task Scheduler</span>
+                </div>
+                <div class="footer-links">
+                    <a href="#about">About</a>
+                    <a href="scheduler.html">Scheduler</a>
+                    <a href="results.html">Results</a>
+                </div>
+            </div>
+            <div class="footer-bottom">
+                <p>&copy; 2025 Parallel Task Scheduler - Operating Systems Project</p>
+                <p>Demonstrating OS Concepts: Process Scheduling, Synchronization, and Parallel Processing</p>
+            </div>
+        </div>
+    </footer>
+
+    <!-- Scripts -->
+    <script src="js/home.js"></script>
+</body>
+</html>

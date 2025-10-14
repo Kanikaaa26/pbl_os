@@ -1,0 +1,149 @@
+{
+  "totalExecutionTime": 0,
+  "averageWaitingTime": -159.286,
+  "averageTurnaroundTime": -35,
+  "cpuUtilization": 0,
+  "throughput": 0,
+  "tasks": [
+    {
+      "id": 4,
+      "name": "Matrix Transpose 90x90",
+      "type": "Matrix Multiply",
+      "status": "Completed",
+      "burstTime": 50,
+      "waitingTime": -75,
+      "turnaroundTime": -25,
+      "completionTime": 0
+    },
+    {
+      "id": 2,
+      "name": "Matrix Operations 80x80",
+      "type": "Matrix Multiply",
+      "status": "Completed",
+      "burstTime": 90,
+      "waitingTime": -95,
+      "turnaroundTime": -5,
+      "completionTime": 0
+    },
+    {
+      "id": 3,
+      "name": "Matrix Addition 120x120",
+      "type": "Matrix Multiply",
+      "status": "Completed",
+      "burstTime": 70,
+      "waitingTime": -85,
+      "turnaroundTime": -15,
+      "completionTime": 0
+    },
+    {
+      "id": 7,
+      "name": "Data Sorting 30K items",
+      "type": "Sorting",
+      "status": "Completed",
+      "burstTime": 80,
+      "waitingTime": -120,
+      "turnaroundTime": -40,
+      "completionTime": 0
+    },
+    {
+      "id": 1,
+      "name": "Matrix Multiplication 100x100",
+      "type": "Matrix Multiply",
+      "status": "Completed",
+      "burstTime": 100,
+      "waitingTime": -100,
+      "turnaroundTime": 0,
+      "completionTime": 0
+    },
+    {
+      "id": 13,
+      "name": "Complex Calculation - FFT",
+      "type": "Computation",
+      "status": "Completed",
+      "burstTime": 140,
+      "waitingTime": -170,
+      "turnaroundTime": -30,
+      "completionTime": 0
+    },
+    {
+      "id": 6,
+      "name": "Quick Sort 50K elements",
+      "type": "Sorting",
+      "status": "Completed",
+      "burstTime": 150,
+      "waitingTime": -160,
+      "turnaroundTime": -10,
+      "completionTime": 0
+    },
+    {
+      "id": 14,
+      "name": "Scientific Computation - PDE",
+      "type": "Computation",
+      "status": "Completed",
+      "burstTime": 160,
+      "waitingTime": -205,
+      "turnaroundTime": -45,
+      "completionTime": 0
+    },
+    {
+      "id": 5,
+      "name": "Matrix Inversion 60x60",
+      "type": "Matrix Multiply",
+      "status": "Completed",
+      "burstTime": 180,
+      "waitingTime": -215,
+      "turnaroundTime": -35,
+      "completionTime": 0
+    },
+    {
+      "id": 8,
+      "name": "Merge Sort 75K elements",
+      "type": "Sorting",
+      "status": "Completed",
+      "burstTime": 120,
+      "waitingTime": -175,
+      "turnaroundTime": -55,
+      "completionTime": 0
+    },
+    {
+      "id": 9,
+      "name": "Bubble Sort 20K elements",
+      "type": "Sorting",
+      "status": "Completed",
+      "burstTime": 200,
+      "waitingTime": -270,
+      "turnaroundTime": -70,
+      "completionTime": 0
+    },
+    {
+      "id": 12,
+      "name": "Config File Parsing",
+      "type": "File Processing",
+      "status": "Completed",
+      "burstTime": 90,
+      "waitingTime": -170,
+      "turnaroundTime": -80,
+      "completionTime": 0
+    },
+    {
+      "id": 11,
+      "name": "Server Log Processing",
+      "type": "File Processing",
+      "status": "Completed",
+      "burstTime": 110,
+      "waitingTime": -170,
+      "turnaroundTime": -60,
+      "completionTime": 0
+    },
+    {
+      "id": 10,
+      "name": "Log File Processing",
+      "type": "File Processing",
+      "status": "Completed",
+      "burstTime": 200,
+      "waitingTime": -220,
+      "turnaroundTime": -20,
+      "completionTime": 0
+    }
+  ]
+}

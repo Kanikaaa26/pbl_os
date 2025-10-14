@@ -1,0 +1,296 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Task Scheduler - Parallel Task Scheduler</title>
+    <link rel="stylesheet" href="css/styles.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+</head>
+<body>
+    <!-- Navigation -->
+    <nav class="navbar">
+        <div class="nav-container">
+            <div class="nav-logo">
+                <i class="fas fa-tasks"></i>
+                <span>Parallel Task Scheduler</span>
+            </div>
+            <div class="nav-links">
+                <a href="index.html" class="nav-link">Home</a>
+                <a href="scheduler.html" class="nav-link active">Scheduler</a>
+                <a href="results.html" class="nav-link">Results</a>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Scheduler Header -->
+    <section class="page-header">
+        <div class="container">
+            <div class="header-content">
+                <div class="header-text">
+                    <h1>Task Scheduler</h1>
+                    <p>Create tasks, select algorithms, and run your parallel scheduler</p>
+                </div>
+                <div class="header-actions">
+                    <button id="loadSampleBtn" class="btn btn-secondary">
+                        <i class="fas fa-download"></i>
+                        Load Sample Tasks
+                    </button>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Main Content -->
+    <main class="main-content">
+        <div class="container">
+            <div class="scheduler-layout">
+                <!-- Left Panel - Task Management -->
+                <div class="scheduler-panel task-panel">
+                    <div class="panel-header">
+                        <h2><i class="fas fa-tasks"></i> Task Management</h2>
+                        <button id="addTaskBtn" class="btn btn-primary btn-sm">
+                            <i class="fas fa-plus"></i>
+                            Add Task
+                        </button>
+                    </div>
+
+                    <!-- Task Form -->
+                    <div class="task-form-container" id="taskFormContainer" style="display: none;">
+                        <div class="form-card">
+                            <h3>Add New Task</h3>
+                            <form id="taskForm">
+                                <div class="form-grid">
+                                    <div class="form-group">
+                                        <label for="taskName">Task Name</label>
+                                        <input type="text" id="taskName" class="input-field" placeholder="e.g., Matrix Multiplication" required>
+                                    </div>
+                                    <div class="form-group">
+                                        <label for="taskType">Task Type</label>
+                                        <select id="taskType" class="input-field">
+                                            <option value="matrix">Matrix Multiplication</option>
+                                            <option value="sort">Sorting</option>
+                                            <option value="file">File Processing</option>
+                                            <option value="compute">Computation</option>
+                                        </select>
+                                    </div>
+                                    <div class="form-group">
+                                        <label for="taskPriority">Priority (1-5)</label>
+                                        <input type="number" id="taskPriority" class="input-field" value="3" min="1" max="5">
+                                    </div>
+                                    <div class="form-group">
+                                        <label for="taskBurstTime">Burst Time (ms)</label>
+                                        <input type="number" id="taskBurstTime" class="input-field" value="100" min="10" max="10000">
+                                    </div>
+                                    <div class="form-group">
+                                        <label for="taskArrivalTime">Arrival Time (ms)</label>
+                                        <input type="number" id="taskArrivalTime" class="input-field" value="0" min="0" max="10000">
+                                    </div>
+                                    <div class="form-group">
+                                        <label for="taskDataSize">Data Size</label>
+                                        <input type="number" id="taskDataSize" class="input-field" value="1000" min="10" max="100000">
+                                    </div>
+                                </div>
+                                <div class="form-actions">
+                                    <button type="submit" class="btn btn-primary">
+                                        <i class="fas fa-save"></i>
+                                        Save Task
+                                    </button>
+                                    <button type="button" id="cancelTaskBtn" class="btn btn-secondary">
+                                        <i class="fas fa-times"></i>
+                                        Cancel
+                                    </button>
+                                </div>
+                            </form>
+                        </div>
+                    </div>
+
+                    <!-- Task List -->
+                    <div class="task-list-container">
+                        <div class="task-list-header">
+                            <h3>Task Queue (<span id="taskCount">0</span> tasks)</h3>
+                            <button id="clearTasksBtn" class="btn btn-warning btn-sm">
+                                <i class="fas fa-trash"></i>
+                                Clear All
+                            </button>
+                        </div>
+                        <div class="table-container">
+                            <table class="task-table" id="taskTable">
+                                <thead>
+                                    <tr>
+                                        <th>ID</th>
+                                        <th>Name</th>
+                                        <th>Type</th>
+                                        <th>Priority</th>
+                                        <th>Burst Time</th>
+                                        <th>Arrival Time</th>
+                                        <th>Actions</th>
+                                    </tr>
+                                </thead>
+                                <tbody id="taskTableBody">
+                                    <tr>
+                                        <td colspan="7" class="empty-state">
+                                            <i class="fas fa-inbox"></i>
+                                            <p>No tasks added yet</p>
+                                            <small>Click "Add Task" to create your first task</small>
+                                        </td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Right Panel - Scheduler Control -->
+                <div class="scheduler-panel control-panel">
+                    <div class="panel-header">
+                        <h2><i class="fas fa-cogs"></i> Scheduler Control</h2>
+                    </div>
+
+                    <!-- Algorithm Selection -->
+                    <div class="control-section">
+                        <h3>Scheduling Algorithm</h3>
+                        <div class="algorithm-selector">
+                            <div class="algorithm-option" data-algorithm="sjf">
+                                <div class="algorithm-icon">
+                                    <i class="fas fa-clock"></i>
+                                </div>
+                                <div class="algorithm-info">
+                                    <h4>Shortest Job First (SJF)</h4>
+                                    <p>Executes shortest tasks first for optimal waiting time</p>
+                                </div>
+                                <div class="algorithm-radio">
+                                    <input type="radio" id="sjf" name="algorithm" value="sjf" checked>
+                                    <label for="sjf"></label>
+                                </div>
+                            </div>
+                            <div class="algorithm-option" data-algorithm="rr">
+                                <div class="algorithm-icon">
+                                    <i class="fas fa-sync-alt"></i>
+                                </div>
+                                <div class="algorithm-info">
+                                    <h4>Round Robin (RR)</h4>
+                                    <p>Time quantum based scheduling for fairness</p>
+                                </div>
+                                <div class="algorithm-radio">
+                                    <input type="radio" id="rr" name="algorithm" value="rr">
+                                    <label for="rr"></label>
+                                </div>
+                            </div>
+                            <div class="algorithm-option" data-algorithm="priority">
+                                <div class="algorithm-icon">
+                                    <i class="fas fa-star"></i>
+                                </div>
+                                <div class="algorithm-info">
+                                    <h4>Priority Scheduling</h4>
+                                    <p>Higher priority tasks execute first</p>
+                                </div>
+                                <div class="algorithm-radio">
+                                    <input type="radio" id="priority" name="algorithm" value="priority">
+                                    <label for="priority"></label>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Execution Parameters -->
+                    <div class="control-section">
+                        <h3>Execution Parameters</h3>
+                        <div class="parameter-grid">
+                            <div class="form-group">
+                                <label for="numThreads">Worker Threads</label>
+                                <input type="number" id="numThreads" class="input-field" value="4" min="1" max="16">
+                                <small>Number of parallel execution threads</small>
+                            </div>
+                            <div class="form-group" id="quantumGroup" style="display: none;">
+                                <label for="timeQuantum">Time Quantum (ms)</label>
+                                <input type="number" id="timeQuantum" class="input-field" value="100" min="10" max="1000">
+                                <small>Time slice for Round Robin scheduling</small>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Execution Control -->
+                    <div class="control-section">
+                        <h3>Execution Control</h3>
+                        <div class="execution-controls">
+                            <button id="startBtn" class="btn btn-primary btn-large">
+                                <i class="fas fa-play"></i>
+                                Start Scheduler
+                            </button>
+                            <button id="stopBtn" class="btn btn-danger btn-large" disabled>
+                                <i class="fas fa-stop"></i>
+                                Stop Scheduler
+                            </button>
+                            <button id="benchmarkBtn" class="btn btn-info btn-large">
+                                <i class="fas fa-chart-line"></i>
+                                Run Benchmark
+                            </button>
+                        </div>
+                    </div>
+
+                    <!-- Progress Monitor -->
+                    <div class="control-section">
+                        <h3>Execution Progress</h3>
+                        <div class="progress-monitor" id="progressContainer" style="display: none;">
+                            <div class="progress-info">
+                                <span class="progress-label">Progress:</span>
+                                <span class="progress-value" id="progressText">0%</span>
+                            </div>
+                            <div class="progress-bar">
+                                <div class="progress-fill" id="progressFill"></div>
+                            </div>
+                        </div>
+                        <div class="execution-status" id="executionStatus">
+                            <i class="fas fa-info-circle"></i>
+                            <span>Ready to start scheduling</span>
+                        </div>
+                    </div>
+
+                    <!-- Results Actions -->
+                    <div class="control-section" id="resultsSection" style="display: none;">
+                        <h3>Execution Complete!</h3>
+                        <p>Your scheduler has finished executing all tasks. View the results below:</p>
+                        <div class="results-actions">
+                            <a href="results.html?tab=performance" class="btn btn-success">
+                                <i class="fas fa-chart-bar"></i>
+                                View Performance
+                            </a>
+                            <a href="results.html?tab=logs" class="btn btn-info">
+                                <i class="fas fa-file-alt"></i>
+                                View Logs
+                            </a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </main>
+
+    <!-- Footer -->
+    <footer class="footer">
+        <div class="container">
+            <div class="footer-content">
+                <div class="footer-logo">
+                    <i class="fas fa-tasks"></i>
+                    <span>Parallel Task Scheduler</span>
+                </div>
+                <div class="footer-links">
+                    <a href="index.html">Home</a>
+                    <a href="scheduler.html">Scheduler</a>
+                    <a href="results.html">Results</a>
+                </div>
+               
+            </div>
+            <div class="footer-bottom">
+                <p>&copy; 2025 Parallel Task Scheduler - Operating Systems Project</p>
+                <p>Demonstrating OS Concepts: Process Scheduling, Synchronization, and Parallel Processing</p>
+            </div>
+        </div>
+    </footer>
+
+    <!-- Scripts -->
+    <script src="js/scheduler.js"></script>
+</body>
+</html>

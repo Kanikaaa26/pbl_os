@@ -1,0 +1,130 @@
+{
+  "tasks": [
+    {
+      "id": 1,
+      "name": "Matrix Multiplication 100x100",
+      "type": "matrix",
+      "priority": 3,
+      "burstTime": 100,
+      "arrivalTime": 0,
+      "dataSize": 100
+    },
+    {
+      "id": 2,
+      "name": "Matrix Operations 80x80",
+      "type": "matrix",
+      "priority": 3,
+      "burstTime": 90,
+      "arrivalTime": 5,
+      "dataSize": 80
+    },
+    {
+      "id": 3,
+      "name": "Matrix Addition 120x120",
+      "type": "matrix",
+      "priority": 2,
+      "burstTime": 70,
+      "arrivalTime": 15,
+      "dataSize": 120
+    },
+    {
+      "id": 4,
+      "name": "Matrix Transpose 90x90",
+      "type": "matrix",
+      "priority": 1,
+      "burstTime": 50,
+      "arrivalTime": 25,
+      "dataSize": 90
+    },
+    {
+      "id": 5,
+      "name": "Matrix Inversion 60x60",
+      "type": "matrix",
+      "priority": 4,
+      "burstTime": 180,
+      "arrivalTime": 35,
+      "dataSize": 60
+    },
+    {
+      "id": 6,
+      "name": "Quick Sort 50K elements",
+      "type": "sort",
+      "priority": 2,
+      "burstTime": 150,
+      "arrivalTime": 10,
+      "dataSize": 50
+    },
+    {
+      "id": 7,
+      "name": "Data Sorting 30K items",
+      "type": "sort",
+      "priority": 2,
+      "burstTime": 80,
+      "arrivalTime": 40,
+      "dataSize": 30
+    },
+    {
+      "id": 8,
+      "name": "Merge Sort 75K elements",
+      "type": "sort",
+      "priority": 3,
+      "burstTime": 120,
+      "arrivalTime": 55,
+      "dataSize": 75
+    },
+    {
+      "id": 9,
+      "name": "Bubble Sort 20K elements",
+      "type": "sort",
+      "priority": 1,
+      "burstTime": 200,
+      "arrivalTime": 70,
+      "dataSize": 20
+    },
+    {
+      "id": 10,
+      "name": "Log File Processing",
+      "type": "file",
+      "priority": 1,
+      "burstTime": 200,
+      "arrivalTime": 20,
+      "dataSize": 1000
+    },
+    {
+      "id": 11,
+      "name": "Server Log Processing",
+      "type": "file",
+      "priority": 1,
+      "burstTime": 110,
+      "arrivalTime": 60,
+      "dataSize": 500
+    },
+    {
+      "id": 12,
+      "name": "Config File Parsing",
+      "type": "file",
+      "priority": 2,
+      "burstTime": 90,
+      "arrivalTime": 80,
+      "dataSize": 200
+    },
+    {
+      "id": 13,
+      "name": "Complex Calculation - FFT",
+      "type": "compute",
+      "priority": 5,
+      "burstTime": 140,
+      "arrivalTime": 30,
+      "dataSize": 150
+    },
+    {
+      "id": 14,
+      "name": "Scientific Computation - PDE",
+      "type": "compute",
+      "priority": 4,
+      "burstTime": 160,
+      "arrivalTime": 45,
+      "dataSize": 300
+    }
+  ]
+}
