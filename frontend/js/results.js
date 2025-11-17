@@ -51,9 +51,6 @@ function setupEventListeners() {
     document.getElementById('downloadLogsBtn').addEventListener('click', downloadLogs);
     document.getElementById('logLevelFilter').addEventListener('change', filterLogs);
 
-    // Comparison tab
-    document.getElementById('runBenchmarkBtn').addEventListener('click', runBenchmark);
-
     // Chart refresh buttons
     document.querySelectorAll('.chart-refresh').forEach(btn => {
         btn.addEventListener('click', (e) => {
@@ -113,19 +110,26 @@ async function loadResults() {
 function updatePerformanceMetrics(results) {
     console.log('Updating performance metrics with:', results);
 
+    // Ensure all values are valid numbers and non-negative
+    const execTime = Math.max(0, results.totalExecutionTime || 0);
+    const waitTime = Math.max(0, results.averageWaitingTime || 0);
+    const cpuUtil = Math.min(100, Math.max(0, results.cpuUtilization || 0));
+    const throughputVal = Math.max(0, results.throughput || 0);
+    const turnaroundVal = Math.max(0, results.averageTurnaroundTime || 0);
+
     document.getElementById('metricExecTime').textContent =
-        `${results.totalExecutionTime?.toFixed(2) || 0} ms`;
+        `${execTime.toFixed(2)} ms`;
     document.getElementById('metricWaitTime').textContent =
-        `${results.averageWaitingTime?.toFixed(2) || 0} ms`;
+        `${waitTime.toFixed(2)} ms`;
     document.getElementById('metricCpuUtil').textContent =
-        `${results.cpuUtilization?.toFixed(2) || 0}%`;
+        `${cpuUtil.toFixed(2)}%`;
     document.getElementById('metricThroughput').textContent =
-        `${results.throughput?.toFixed(2) || 0} tasks/sec`;
+        `${throughputVal.toFixed(2)} tasks/sec`;
     document.getElementById('metricTurnaround').textContent =
-        `${results.averageTurnaroundTime?.toFixed(2) || 0} ms`;
+        `${turnaroundVal.toFixed(2)} ms`;
 
     // Calculate speedup (mock calculation for demo)
-    const speedup = (2.5 + Math.random() * 1.5).toFixed(2);
+    const speedup = execTime > 0 ? (2.5 + Math.random() * 1.5).toFixed(2) : '0.00';
     document.getElementById('metricSpeedup').textContent = `${speedup}x`;
 }
 
@@ -267,77 +271,7 @@ function viewRawResults() {
     dataDisplay.innerHTML = `<pre>${JSON.stringify(state.results, null, 2)}</pre>`;
 }
 
-async function runBenchmark() {
-    if (!state.results) {
-        showNotification('Please run the scheduler first to get benchmark data', 'warning');
-        return;
-    }
 
-    showNotification('Running algorithm comparison...', 'info');
-
-    try {
-        // For demo purposes, we'll simulate benchmark data
-        // In a real implementation, this would call the API
-        const benchmarkData = {
-            sjf: {
-                totalExecutionTime: state.results.totalExecutionTime * 0.9,
-                averageWaitingTime: state.results.averageWaitingTime * 0.8,
-                cpuUtilization: state.results.cpuUtilization * 0.95,
-                throughput: state.results.throughput * 1.1
-            },
-            rr: {
-                totalExecutionTime: state.results.totalExecutionTime * 1.1,
-                averageWaitingTime: state.results.averageWaitingTime * 1.2,
-                cpuUtilization: state.results.cpuUtilization * 0.9,
-                throughput: state.results.throughput * 0.9
-            },
-            priority: {
-                totalExecutionTime: state.results.totalExecutionTime * 1.05,
-                averageWaitingTime: state.results.averageWaitingTime * 1.1,
-                cpuUtilization: state.results.cpuUtilization * 0.92,
-                throughput: state.results.throughput * 0.95
-            }
-        };
-
-        state.benchmarkData = benchmarkData;
-        renderBenchmarkResults(benchmarkData);
-        showNotification('Benchmark comparison completed!', 'success');
-
-    } catch (error) {
-        console.error('Error running benchmark:', error);
-        showNotification('Error running benchmark: ' + error.message, 'error');
-    }
-}
-
-function renderBenchmarkResults(data) {
-    document.getElementById('comparisonResults').style.display = 'block';
-
-    // Update comparison table
-    const tbody = document.getElementById('comparisonTableBody');
-    tbody.innerHTML = Object.entries(data).map(([algo, results]) => `
-        <tr>
-            <td>${algo.toUpperCase()}</td>
-            <td>${results.totalExecutionTime?.toFixed(2) || 0} ms</td>
-            <td>${results.averageWaitingTime?.toFixed(2) || 0} ms</td>
-            <td>${results.cpuUtilization?.toFixed(2) || 0}%</td>
-            <td>${results.throughput?.toFixed(2) || 0} tasks/sec</td>
-            <td><span class="score-badge">${calculateScore(results).toFixed(1)}</span></td>
-        </tr>
-    `).join('');
-
-    // Update charts
-    updateBenchmarkCharts(data);
-}
-
-function calculateScore(results) {
-    // Simple scoring algorithm (higher is better)
-    const execScore = 100 - (results.totalExecutionTime / 10);
-    const waitScore = 100 - (results.averageWaitingTime / 5);
-    const cpuScore = results.cpuUtilization;
-    const throughputScore = results.throughput * 10;
-
-    return (execScore + waitScore + cpuScore + throughputScore) / 4;
-}
 
 function refreshChart(chartType) {
     if (!state.results) {

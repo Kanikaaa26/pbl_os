@@ -1,29 +1,19 @@
 {
-  "totalExecutionTime": 0,
-  "averageWaitingTime": -159.286,
-  "averageTurnaroundTime": -35,
-  "cpuUtilization": 0,
-  "throughput": 0,
+  "totalExecutionTime": 2085,
+  "averageWaitingTime": 265.643,
+  "averageTurnaroundTime": 389.929,
+  "cpuUtilization": 20.8633,
+  "throughput": 6.71463,
   "tasks": [
-    {
-      "id": 4,
-      "name": "Matrix Transpose 90x90",
-      "type": "Matrix Multiply",
-      "status": "Completed",
-      "burstTime": 50,
-      "waitingTime": -75,
-      "turnaroundTime": -25,
-      "completionTime": 0
-    },
     {
       "id": 2,
       "name": "Matrix Operations 80x80",
       "type": "Matrix Multiply",
       "status": "Completed",
       "burstTime": 90,
-      "waitingTime": -95,
-      "turnaroundTime": -5,
-      "completionTime": 0
+      "waitingTime": 0,
+      "turnaroundTime": 90,
+      "completionTime": 23
     },
     {
       "id": 3,
@@ -31,19 +21,9 @@
       "type": "Matrix Multiply",
       "status": "Completed",
       "burstTime": 70,
-      "waitingTime": -85,
-      "turnaroundTime": -15,
-      "completionTime": 0
-    },
-    {
-      "id": 7,
-      "name": "Data Sorting 30K items",
-      "type": "Sorting",
-      "status": "Completed",
-      "burstTime": 80,
-      "waitingTime": -120,
-      "turnaroundTime": -40,
-      "completionTime": 0
+      "waitingTime": 0,
+      "turnaroundTime": 70,
+      "completionTime": 26
     },
     {
       "id": 1,
@@ -51,9 +31,29 @@
       "type": "Matrix Multiply",
       "status": "Completed",
       "burstTime": 100,
-      "waitingTime": -100,
-      "turnaroundTime": 0,
-      "completionTime": 0
+      "waitingTime": 0,
+      "turnaroundTime": 100,
+      "completionTime": 28
+    },
+    {
+      "id": 4,
+      "name": "Matrix Transpose 90x90",
+      "type": "Matrix Multiply",
+      "status": "Completed",
+      "burstTime": 50,
+      "waitingTime": 0,
+      "turnaroundTime": 50,
+      "completionTime": 43
+    },
+    {
+      "id": 7,
+      "name": "Data Sorting 30K items",
+      "type": "Sorting",
+      "status": "Completed",
+      "burstTime": 80,
+      "waitingTime": 0,
+      "turnaroundTime": 80,
+      "completionTime": 56
     },
     {
       "id": 13,
@@ -61,9 +61,9 @@
       "type": "Computation",
       "status": "Completed",
       "burstTime": 140,
-      "waitingTime": -170,
-      "turnaroundTime": -30,
-      "completionTime": 0
+      "waitingTime": 0,
+      "turnaroundTime": 140,
+      "completionTime": 59
     },
     {
       "id": 6,
@@ -71,9 +71,9 @@
       "type": "Sorting",
       "status": "Completed",
       "burstTime": 150,
-      "waitingTime": -160,
-      "turnaroundTime": -10,
-      "completionTime": 0
+      "waitingTime": 0,
+      "turnaroundTime": 150,
+      "completionTime": 67
     },
     {
       "id": 14,
@@ -81,9 +81,9 @@
       "type": "Computation",
       "status": "Completed",
       "burstTime": 160,
-      "waitingTime": -205,
-      "turnaroundTime": -45,
-      "completionTime": 0
+      "waitingTime": 0,
+      "turnaroundTime": 160,
+      "completionTime": 74
     },
     {
       "id": 5,
@@ -91,19 +91,9 @@
       "type": "Matrix Multiply",
       "status": "Completed",
       "burstTime": 180,
-      "waitingTime": -215,
-      "turnaroundTime": -35,
-      "completionTime": 0
-    },
-    {
-      "id": 8,
-      "name": "Merge Sort 75K elements",
-      "type": "Sorting",
-      "status": "Completed",
-      "burstTime": 120,
-      "waitingTime": -175,
-      "turnaroundTime": -55,
-      "completionTime": 0
+      "waitingTime": 0,
+      "turnaroundTime": 180,
+      "completionTime": 75
     },
     {
       "id": 9,
@@ -111,9 +101,19 @@
       "type": "Sorting",
       "status": "Completed",
       "burstTime": 200,
-      "waitingTime": -270,
-      "turnaroundTime": -70,
-      "completionTime": 0
+      "waitingTime": 0,
+      "turnaroundTime": 200,
+      "completionTime": 78
+    },
+    {
+      "id": 8,
+      "name": "Merge Sort 75K elements",
+      "type": "Sorting",
+      "status": "Completed",
+      "burstTime": 120,
+      "waitingTime": 0,
+      "turnaroundTime": 120,
+      "completionTime": 79
     },
     {
       "id": 12,
@@ -121,9 +121,9 @@
       "type": "File Processing",
       "status": "Completed",
       "burstTime": 90,
-      "waitingTime": -170,
-      "turnaroundTime": -80,
-      "completionTime": 0
+      "waitingTime": 833,
+      "turnaroundTime": 923,
+      "completionTime": 1003
     },
     {
       "id": 11,
@@ -131,9 +131,9 @@
       "type": "File Processing",
       "status": "Completed",
       "burstTime": 110,
-      "waitingTime": -170,
-      "turnaroundTime": -60,
-      "completionTime": 0
+      "waitingTime": 1021,
+      "turnaroundTime": 1131,
+      "completionTime": 1191
     },
     {
       "id": 10,
@@ -141,9 +141,9 @@
       "type": "File Processing",
       "status": "Completed",
       "burstTime": 200,
-      "waitingTime": -220,
-      "turnaroundTime": -20,
-      "completionTime": 0
+      "waitingTime": 1865,
+      "turnaroundTime": 2065,
+      "completionTime": 2085
     }
   ]
 }

@@ -28,9 +28,9 @@ function updateExecutionChart(results) {
 
     const tasks = results.tasks || [];
     const labels = tasks.map(t => `Task ${t.id}`);
-    const burstTimes = tasks.map(t => t.burstTime);
-    const waitingTimes = tasks.map(t => t.waitingTime);
-    const turnaroundTimes = tasks.map(t => t.turnaroundTime);
+    const burstTimes = tasks.map(t => Math.abs(t.burstTime || 0));
+    const waitingTimes = tasks.map(t => Math.abs(t.waitingTime || 0));
+    const turnaroundTimes = tasks.map(t => Math.abs(t.turnaroundTime || 0));
 
     executionChart = new Chart(ctx, {
         type: 'bar',
@@ -95,7 +95,7 @@ function updateCPUChart(results) {
         cpuChart.destroy();
     }
 
-    const cpuUtilization = results.cpuUtilization || 0;
+    const cpuUtilization = Math.min(100, Math.max(0, results.cpuUtilization || 0));
     const idle = 100 - cpuUtilization;
 
     cpuChart = new Chart(ctx, {
@@ -209,11 +209,11 @@ function updateMetricsChart(results) {
             datasets: [{
                 label: 'Performance Profile',
                 data: [
-                    results.cpuUtilization || 0,
-                    (results.throughput || 0) * 10,
-                    85 + Math.random() * 10,
-                    90 - (results.averageWaitingTime || 0) / 10,
-                    75 + Math.random() * 15
+                    Math.min(100, Math.max(0, results.cpuUtilization || 0)),
+                    Math.max(0, (results.throughput || 0) * 10),
+                    Math.min(100, 85 + Math.random() * 10),
+                    Math.max(0, Math.min(100, 90 - ((results.averageWaitingTime || 0) / 10))),
+                    Math.min(100, 75 + Math.random() * 15)
                 ],
                 backgroundColor: 'rgba(99, 102, 241, 0.2)',
                 borderColor: 'rgba(99, 102, 241, 1)',
@@ -254,7 +254,7 @@ function updateBenchmarkCharts(benchmarkResults) {
         if (benchmarkExecutionChart) benchmarkExecutionChart.destroy();
 
         const algorithms = Object.keys(benchmarkResults);
-        const execTimes = algorithms.map(algo => benchmarkResults[algo].totalExecutionTime);
+        const execTimes = algorithms.map(algo => Math.max(0, benchmarkResults[algo].totalExecutionTime || 0));
 
         benchmarkExecutionChart = new Chart(ctx1, {
             type: 'bar',
@@ -302,7 +302,7 @@ function updateBenchmarkCharts(benchmarkResults) {
         if (benchmarkWaitingChart) benchmarkWaitingChart.destroy();
 
         const algorithms = Object.keys(benchmarkResults);
-        const waitTimes = algorithms.map(algo => benchmarkResults[algo].averageWaitingTime);
+        const waitTimes = algorithms.map(algo => Math.max(0, benchmarkResults[algo].averageWaitingTime || 0));
 
         benchmarkWaitingChart = new Chart(ctx2, {
             type: 'line',
@@ -350,7 +350,7 @@ function updateBenchmarkCharts(benchmarkResults) {
         if (benchmarkCpuChart) benchmarkCpuChart.destroy();
 
         const algorithms = Object.keys(benchmarkResults);
-        const cpuUtils = algorithms.map(algo => benchmarkResults[algo].cpuUtilization);
+        const cpuUtils = algorithms.map(algo => Math.min(100, Math.max(0, benchmarkResults[algo].cpuUtilization || 0)));
 
         benchmarkCpuChart = new Chart(ctx3, {
             type: 'bar',
@@ -419,11 +419,11 @@ function updateBenchmarkCharts(benchmarkResults) {
             return {
                 label: algo.toUpperCase(),
                 data: [
-                    results.cpuUtilization,
-                    results.throughput * 10,
-                    100 - (results.averageWaitingTime / 10),
-                    100 - (results.totalExecutionTime / 50),
-                    results.cpuUtilization * 0.9
+                    Math.min(100, Math.max(0, results.cpuUtilization || 0)),
+                    Math.max(0, (results.throughput || 0) * 10),
+                    Math.max(0, 100 - ((results.averageWaitingTime || 0) / 10)),
+                    Math.max(0, 100 - ((results.totalExecutionTime || 0) / 50)),
+                    Math.min(100, Math.max(0, (results.cpuUtilization || 0) * 0.9))
                 ],
                 backgroundColor: colors[index],
                 borderColor: borderColors[index],

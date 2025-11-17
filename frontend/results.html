@@ -59,10 +59,6 @@
                     <i class="fas fa-file-alt"></i>
                     Logs
                 </button>
-                <button class="results-tab" data-tab="comparison">
-                    <i class="fas fa-balance-scale"></i>
-                    Comparison
-                </button>
             </div>
         </div>
     </div>
@@ -194,7 +190,7 @@
                 </div>
 
                 <!-- Raw Data -->
-                <div class="data-section">
+                <!-- <div class="data-section">
                     <div class="data-header">
                         <h3>Raw Performance Data</h3>
                         <button id="viewRawResultsBtn" class="btn btn-info">
@@ -205,7 +201,7 @@
                     <div class="data-display" id="rawDataDisplay">
                         <p class="placeholder-text">No performance data available. Run the scheduler first.</p>
                     </div>
-                </div>
+                </div> -->
             </div>
 
             <!-- Logs Tab -->
@@ -251,73 +247,6 @@
                 </div>
             </div>
 
-            <!-- Comparison Tab -->
-            <div class="results-section" id="comparisonTab">
-                <div class="section-header">
-                    <h2>Algorithm Comparison</h2>
-                    <p>Compare different scheduling algorithms side-by-side</p>
-                </div>
-
-                <!-- Benchmark Controls -->
-                <div class="benchmark-controls">
-                    <button id="runBenchmarkBtn" class="btn btn-primary btn-large">
-                        <i class="fas fa-play"></i>
-                        Run Algorithm Comparison
-                    </button>
-                    <p class="benchmark-info">
-                        This will run all scheduling algorithms with your current task set and compare their performance.
-                    </p>
-                </div>
-
-                <!-- Comparison Results -->
-                <div class="comparison-results" id="comparisonResults" style="display: none;">
-                    <div class="comparison-grid">
-                        <div class="comparison-card">
-                            <h3>Execution Time Comparison</h3>
-                            <canvas id="benchmarkExecutionChart"></canvas>
-                        </div>
-
-                        <div class="comparison-card">
-                            <h3>Waiting Time Comparison</h3>
-                            <canvas id="benchmarkWaitingChart"></canvas>
-                        </div>
-
-                        <div class="comparison-card">
-                            <h3>CPU Utilization Comparison</h3>
-                            <canvas id="benchmarkCpuChart"></canvas>
-                        </div>
-
-                        <div class="comparison-card">
-                            <h3>Overall Performance</h3>
-                            <canvas id="benchmarkOverallChart"></canvas>
-                        </div>
-                    </div>
-
-                    <!-- Comparison Table -->
-                    <div class="comparison-table-container">
-                        <h3>Detailed Comparison</h3>
-                        <div class="table-container">
-                            <table class="comparison-table" id="comparisonTable">
-                                <thead>
-                                    <tr>
-                                        <th>Algorithm</th>
-                                        <th>Execution Time</th>
-                                        <th>Avg Waiting Time</th>
-                                        <th>CPU Utilization</th>
-                                        <th>Throughput</th>
-                                        <th>Score</th>
-                                    </tr>
-                                </thead>
-                                <tbody id="comparisonTableBody">
-                                    <tr>
-                                        <td colspan="6" class="empty-state">Run benchmark to see comparison results</td>
-                                    </tr>
-                                </tbody>
-                            </table>
-                        </div>
-                    </div>
-                </div>
-            </div>
         </div>
     </main>
 

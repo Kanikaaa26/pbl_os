@@ -7,6 +7,8 @@
 build.bat
 ```
 
+for powershell copy above command and ask chatgpt to give it for powershell
+
 ### setep2: Install Python dependencies
 ```
 pip install flask flask-cors matplotlib pandas

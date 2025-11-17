@@ -32,6 +32,7 @@ private:
     bool running;
     
     int currentTime;
+    std::chrono::time_point<std::chrono::high_resolution_clock> globalStartTime;
     
     // Performance metrics
     double totalExecutionTime;

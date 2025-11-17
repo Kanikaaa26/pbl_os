@@ -23,6 +23,7 @@ void Scheduler::addTask(std::shared_ptr<Task> task) {
 
 void Scheduler::start() {
     running = true;
+    globalStartTime = std::chrono::high_resolution_clock::now();
     for(int i = 0; i < numThreads; i++) {
         workerThreads.emplace_back(&Scheduler::workerThread, this, i);
     }
@@ -76,6 +77,15 @@ void Scheduler::workerThread(int threadId) {
         }
         
         if(task) {
+            // Wait for arrival time
+            auto now = std::chrono::high_resolution_clock::now();
+            int elapsedTime = std::chrono::duration_cast<std::chrono::milliseconds>(now - globalStartTime).count();
+            int arrivalTime = task->getArrivalTime();
+            
+            if(elapsedTime < arrivalTime) {
+                std::this_thread::sleep_for(std::chrono::milliseconds(arrivalTime - elapsedTime));
+            }
+            
             // Execute task
             task->startExecution();
             logTaskExecution(task, threadId);
@@ -84,6 +94,11 @@ void Scheduler::workerThread(int threadId) {
             task->execute();
             
             task->finishExecution();
+            
+            // Calculate completion time from global start
+            now = std::chrono::high_resolution_clock::now();
+            int completionTime = std::chrono::duration_cast<std::chrono::milliseconds>(now - globalStartTime).count();
+            task->setCompletionTime(completionTime);
             
             // For Round Robin, if task not complete, re-queue it
             if(algorithm == ROUND_ROBIN && task->getRemainingTime() > 0) {
@@ -156,17 +171,30 @@ void Scheduler::calculateMetrics() {
     int totalWaitingTime = 0;
     int totalTurnaroundTime = 0;
     int maxCompletionTime = 0;
+    int totalBurstTime = 0;
     
+    // Calculate actual execution time from tasks
     for(const auto& task : completedTasks) {
         int completionTime = task->getCompletionTime();
-        int turnaroundTime = completionTime - task->getArrivalTime();
-        int waitingTime = turnaroundTime - task->getBurstTime();
+        int arrivalTime = task->getArrivalTime();
+        int burstTime = task->getBurstTime();
+        
+        // Turnaround time = completion time - arrival time (must be >= burst time)
+        int turnaroundTime = completionTime - arrivalTime;
+        // Ensure turnaround time is at least the burst time
+        turnaroundTime = std::max(turnaroundTime, burstTime);
+        
+        // Waiting time = turnaround time - burst time (should be >= 0)
+        int waitingTime = turnaroundTime - burstTime;
+        // Ensure non-negative
+        waitingTime = std::max(0, waitingTime);
         
         task->setTurnaroundTime(turnaroundTime);
         task->setWaitingTime(waitingTime);
         
         totalWaitingTime += waitingTime;
         totalTurnaroundTime += turnaroundTime;
+        totalBurstTime += burstTime;
         maxCompletionTime = std::max(maxCompletionTime, completionTime);
     }
     
@@ -175,13 +203,18 @@ void Scheduler::calculateMetrics() {
     totalExecutionTime = maxCompletionTime;
     
     // Calculate CPU utilization and throughput
-    int totalBurstTime = 0;
-    for(const auto& task : completedTasks) {
-        totalBurstTime += task->getBurstTime();
+    // Prevent division by zero
+    if(totalExecutionTime > 0) {
+        // CPU utilization = (total work done) / (available CPU time)
+        cpuUtilization = (static_cast<double>(totalBurstTime) / (totalExecutionTime * numThreads)) * 100;
+        // Cap at 100%
+        cpuUtilization = std::min(cpuUtilization, 100.0);
+        // Throughput in tasks per second (convert ms to seconds)
+        throughput = static_cast<double>(completedTasks.size()) / (totalExecutionTime / 1000.0);
+    } else {
+        cpuUtilization = 0.0;
+        throughput = 0.0;
     }
-    
-    cpuUtilization = (static_cast<double>(totalBurstTime) / (totalExecutionTime * numThreads)) * 100;
-    throughput = static_cast<double>(completedTasks.size()) / totalExecutionTime * 1000; // tasks per second
 }
 
 void Scheduler::printMetrics() const {
