@@ -1,149 +1,59 @@
 {
-  "totalExecutionTime": 2085,
-  "averageWaitingTime": 265.643,
-  "averageTurnaroundTime": 389.929,
-  "cpuUtilization": 20.8633,
-  "throughput": 6.71463,
+  "totalExecutionTime": 2030,
+  "averageWaitingTime": 886.2,
+  "averageTurnaroundTime": 980.6,
+  "cpuUtilization": 5.81281,
+  "throughput": 2.46305,
   "tasks": [
     {
-      "id": 2,
-      "name": "Matrix Operations 80x80",
-      "type": "Matrix Multiply",
-      "status": "Completed",
-      "burstTime": 90,
-      "waitingTime": 0,
-      "turnaroundTime": 90,
-      "completionTime": 23
-    },
-    {
       "id": 3,
-      "name": "Matrix Addition 120x120",
-      "type": "Matrix Multiply",
-      "status": "Completed",
-      "burstTime": 70,
-      "waitingTime": 0,
-      "turnaroundTime": 70,
-      "completionTime": 26
-    },
-    {
-      "id": 1,
-      "name": "Matrix Multiplication 100x100",
-      "type": "Matrix Multiply",
-      "status": "Completed",
-      "burstTime": 100,
-      "waitingTime": 0,
-      "turnaroundTime": 100,
-      "completionTime": 28
-    },
-    {
-      "id": 4,
-      "name": "Matrix Transpose 90x90",
-      "type": "Matrix Multiply",
-      "status": "Completed",
-      "burstTime": 50,
-      "waitingTime": 0,
-      "turnaroundTime": 50,
-      "completionTime": 43
-    },
-    {
-      "id": 7,
-      "name": "Data Sorting 30K items",
-      "type": "Sorting",
-      "status": "Completed",
-      "burstTime": 80,
-      "waitingTime": 0,
-      "turnaroundTime": 80,
-      "completionTime": 56
-    },
-    {
-      "id": 13,
-      "name": "Complex Calculation - FFT",
+      "name": "FFT Calculation 3",
       "type": "Computation",
       "status": "Completed",
-      "burstTime": 140,
+      "burstTime": 52,
       "waitingTime": 0,
-      "turnaroundTime": 140,
-      "completionTime": 59
+      "turnaroundTime": 52,
+      "completionTime": 73
     },
     {
-      "id": 6,
-      "name": "Quick Sort 50K elements",
-      "type": "Sorting",
+      "id": 2,
+      "name": "Log Processing 2",
+      "type": "File Processing",
       "status": "Completed",
-      "burstTime": 150,
-      "waitingTime": 0,
-      "turnaroundTime": 150,
-      "completionTime": 67
-    },
-    {
-      "id": 14,
-      "name": "Scientific Computation - PDE",
-      "type": "Computation",
-      "status": "Completed",
-      "burstTime": 160,
-      "waitingTime": 0,
-      "turnaroundTime": 160,
-      "completionTime": 74
+      "burstTime": 53,
+      "waitingTime": 499,
+      "turnaroundTime": 552,
+      "completionTime": 594
     },
     {
       "id": 5,
-      "name": "Matrix Inversion 60x60",
+      "name": "Config Parsing 5",
+      "type": "File Processing",
+      "status": "Completed",
+      "burstTime": 95,
+      "waitingTime": 865,
+      "turnaroundTime": 960,
+      "completionTime": 1055
+    },
+    {
+      "id": 1,
+      "name": "Log Processing 1",
+      "type": "File Processing",
+      "status": "Completed",
+      "burstTime": 136,
+      "waitingTime": 1272,
+      "turnaroundTime": 1408,
+      "completionTime": 1449
+    },
+    {
+      "id": 4,
+      "name": "Matrix Inversion 4",
       "type": "Matrix Multiply",
       "status": "Completed",
-      "burstTime": 180,
-      "waitingTime": 0,
-      "turnaroundTime": 180,
-      "completionTime": 75
-    },
-    {
-      "id": 9,
-      "name": "Bubble Sort 20K elements",
-      "type": "Sorting",
-      "status": "Completed",
-      "burstTime": 200,
-      "waitingTime": 0,
-      "turnaroundTime": 200,
-      "completionTime": 78
-    },
-    {
-      "id": 8,
-      "name": "Merge Sort 75K elements",
-      "type": "Sorting",
-      "status": "Completed",
-      "burstTime": 120,
-      "waitingTime": 0,
-      "turnaroundTime": 120,
-      "completionTime": 79
-    },
-    {
-      "id": 12,
-      "name": "Config File Parsing",
-      "type": "File Processing",
-      "status": "Completed",
-      "burstTime": 90,
-      "waitingTime": 833,
-      "turnaroundTime": 923,
-      "completionTime": 1003
-    },
-    {
-      "id": 11,
-      "name": "Server Log Processing",
-      "type": "File Processing",
-      "status": "Completed",
-      "burstTime": 110,
-      "waitingTime": 1021,
-      "turnaroundTime": 1131,
-      "completionTime": 1191
-    },
-    {
-      "id": 10,
-      "name": "Log File Processing",
-      "type": "File Processing",
-      "status": "Completed",
-      "burstTime": 200,
-      "waitingTime": 1865,
-      "turnaroundTime": 2065,
-      "completionTime": 2085
+      "burstTime": 136,
+      "waitingTime": 1795,
+      "turnaroundTime": 1931,
+      "completionTime": 2030
     }
   ]
 }

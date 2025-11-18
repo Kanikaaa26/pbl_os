@@ -160,13 +160,27 @@ void writeResultsToJSON(const Scheduler& scheduler, const std::string& filename)
 
 int main(int argc, char* argv[]) {
     if(argc < 3) {
-        std::cout << "Usage: " << argv[0] << " <algorithm> <input_file>\n";
+        std::cout << "Usage: " << argv[0] << " <algorithm> <input_file> [thread_count]\n";
         std::cout << "Algorithms: sjf, rr, priority\n";
+        std::cout << "Thread count: 1-16 (default: 4)\n";
         return 1;
     }
     
     std::string algoStr = argv[1];
     std::string inputFile = argv[2];
+    int threadCount = 4; // Default thread count
+    
+    // Parse optional thread count parameter
+    if(argc >= 4) {
+        try {
+            threadCount = std::stoi(argv[3]);
+            if(threadCount < 1) threadCount = 1;
+            if(threadCount > 16) threadCount = 16;
+        } catch (const std::exception& e) {
+            std::cerr << "Invalid thread count, using default: 4\n";
+            threadCount = 4;
+        }
+    }
     
     // Get output directory from input file path
     std::string outputDir = "data";
@@ -188,6 +202,7 @@ int main(int argc, char* argv[]) {
     std::cout << "Input File: " << inputFile << "\n";
     std::cout << "Output File: " << outputFile << "\n";
     std::cout << "Logs Directory: " << logsDir << "\n";
+    std::cout << "Thread Count: " << threadCount << "\n";
     std::cout << "============================================================\n\n";
     
     SchedulingAlgorithm algo;
@@ -208,8 +223,8 @@ int main(int argc, char* argv[]) {
     
     std::cout << "Tasks loaded: " << tasks.size() << "\n\n";
     
-    // Create scheduler
-    Scheduler scheduler(algo, 4, 2);
+    // Create scheduler with specified thread count
+    Scheduler scheduler(algo, threadCount, 2);
     
     // Add tasks
     for(auto& task : tasks) {

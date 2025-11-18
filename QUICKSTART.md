@@ -65,6 +65,24 @@ Then open: http://localhost:8000
 5. **View Results**: Switch to "Performance" tab for detailed analytics
 6. **Run Benchmark**: Compare all algorithms with one click
 
+### 🆕 Using the Thread Scaling Comparison Feature
+
+1. **Navigate to Comparison Page**: Click "Comparison" in the navigation menu
+2. **Configure Test Parameters**:
+   - Set minimum threads (e.g., 1)
+   - Set maximum threads (e.g., 8)
+   - Set thread step (e.g., 1 to test every increment)
+   - Choose number of tasks (e.g., 20)
+3. **Select Algorithms**: Check which algorithms to compare (SJF, RR, Priority)
+4. **Run Test**: Click "Run Thread Scaling Test"
+5. **Analyze Results**:
+   - View 6 interactive charts showing performance trends
+   - See how execution time decreases with more threads
+   - Compare speedup and efficiency across algorithms
+   - Export results to CSV or JSON
+
+**Quick Demo**: Click "Use Sample Data" to instantly see pre-generated results demonstrating how threads affect performance!
+
 ## 🔧 Manual Testing (Command Line)
 
 ### Test SJF Algorithm

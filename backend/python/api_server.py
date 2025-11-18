@@ -286,6 +286,115 @@ def run_benchmark():
         print(f"Error in run_benchmark: {str(e)}")
         return jsonify({'error': str(e)}), 500
 
+@app.route('/api/comparison/execute', methods=['POST'])
+def execute_comparison():
+    """Execute scheduler with specific thread count for comparison testing"""
+    try:
+        data = request.json
+        algorithm = data.get('algorithm', 'sjf')
+        thread_count = data.get('threadCount', 4)
+        task_file_param = data.get('taskFile', '')
+        
+        # Use absolute path to tasks.json
+        task_file = os.path.join(DATA_DIR, 'tasks.json')
+        
+        if execution_status['running']:
+            return jsonify({'error': 'Scheduler already running'}), 400
+        
+        # Check if C++ executable exists
+        if not os.path.exists(CPP_EXECUTABLE):
+            return jsonify({'error': f'Scheduler executable not found: {CPP_EXECUTABLE}. Please run build.bat first.'}), 400
+        
+        # Check if tasks file exists
+        if not os.path.exists(task_file):
+            return jsonify({'error': f'No tasks file found at {task_file}. Please submit tasks first.'}), 400
+        
+        print(f"Starting comparison test: {CPP_EXECUTABLE} {algorithm} {task_file} {thread_count}")
+        
+        # Start execution in background thread with thread count parameter
+        thread = threading.Thread(target=run_scheduler_with_threads, args=(algorithm, task_file, thread_count))
+        thread.daemon = True
+        thread.start()
+        
+        return jsonify({
+            'status': 'success',
+            'message': f'Comparison test started: {algorithm.upper()} with {thread_count} threads',
+            'task_file': task_file
+        })
+        
+    except Exception as e:
+        print(f"Error in execute_comparison: {str(e)}")
+        import traceback
+        traceback.print_exc()
+        return jsonify({'error': str(e)}), 500
+
+def run_scheduler_with_threads(algorithm, task_file, thread_count):
+    """Run C++ scheduler with specific thread count"""
+    execution_status['running'] = True
+    execution_status['current_algorithm'] = algorithm
+    execution_status['progress'] = 0
+    
+    try:
+        print(f"\n{'='*60}")
+        print(f"Executing C++ Scheduler for Comparison")
+        print(f"Algorithm: {algorithm}")
+        print(f"Thread Count: {thread_count}")
+        print(f"Task File: {task_file}")
+        print(f"Executable: {CPP_EXECUTABLE}")
+        print(f"{'='*60}\n")
+        
+        # Change to base directory for execution
+        original_dir = os.getcwd()
+        os.chdir(BASE_DIR)
+        
+        # Execute C++ scheduler with thread count parameter
+        result = subprocess.run(
+            [CPP_EXECUTABLE, algorithm, task_file, str(thread_count)],
+            capture_output=True,
+            text=True,
+            timeout=120
+        )
+        
+        # Change back to original directory
+        os.chdir(original_dir)
+        
+        print(f"\nScheduler execution completed with return code: {result.returncode}")
+        
+        if result.returncode == 0:
+            print("STDOUT:", result.stdout)
+            execution_status['progress'] = 100
+            execution_status['tasks_completed'] = execution_status['total_tasks']
+            
+            # Verify output files were created
+            results_file = os.path.join(DATA_DIR, 'results.json')
+            log_file = os.path.join(LOGS_DIR, 'execution.log')
+            
+            if os.path.exists(results_file):
+                print(f"✓ Results file created: {results_file}")
+            else:
+                print(f"✗ Results file NOT found: {results_file}")
+                
+            if os.path.exists(log_file):
+                print(f"✓ Log file created: {log_file}")
+            else:
+                print(f"✗ Log file NOT found: {log_file}")
+        else:
+            print(f"Scheduler error (return code {result.returncode}):")
+            print("STDERR:", result.stderr)
+            print("STDOUT:", result.stdout)
+            
+    except subprocess.TimeoutExpired:
+        print("Error: Scheduler execution timeout")
+    except Exception as e:
+        print(f"Error running scheduler: {str(e)}")
+        import traceback
+        traceback.print_exc()
+    finally:
+        # Ensure running status is always reset
+        execution_status['running'] = False
+        execution_status['current_algorithm'] = None
+        print(f"Execution status reset: {execution_status}\n")
+
 @app.route('/api/tasks/sample', methods=['GET'])
 def get_sample_tasks():
     """Get sample task definitions"""

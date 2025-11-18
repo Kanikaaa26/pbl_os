@@ -6,10 +6,11 @@
 3. [Core Concepts & OS Topics](#core-concepts--os-topics)
 4. [Implementation Details](#implementation-details)
 5. [Scheduling Algorithms](#scheduling-algorithms)
-6. [Code Explanation](#code-explanation)
-7. [Execution Flow](#execution-flow)
-8. [Performance Metrics](#performance-metrics)
-9. [How to Answer Questions](#how-to-answer-questions)
+6. [Thread Scaling Comparison Feature](#thread-scaling-comparison-feature)
+7. [Code Explanation](#code-explanation)
+8. [Execution Flow](#execution-flow)
+9. [Performance Metrics](#performance-metrics)
+10. [How to Answer Questions](#how-to-answer-questions)
 
 ---
 
@@ -116,6 +117,183 @@ pbl_os/
 - **Advantage**: Important tasks complete quickly
 - **Disadvantage**: Can starve low-priority tasks
 - **Real-world use**: Real-time systems, server workloads
+
+---
+
+## Thread Scaling Comparison Feature
+
+### Overview
+The **Thread Scaling Comparison** feature is an advanced analysis tool that demonstrates the fundamental principle of parallel computing: **as threads increase, execution time decreases**. This feature provides comprehensive visualizations and metrics to understand how different scheduling algorithms perform with varying thread counts.
+
+### Key Concept
+By increasing the number of worker threads, the scheduler can execute multiple tasks simultaneously, reducing overall execution time. However, this improvement follows the law of diminishing returns due to:
+- Thread synchronization overhead
+- Resource contention
+- Amdahl's Law limitations
+- Context switching costs
+
+### Features
+
+#### 1. Configurable Testing
+- **Thread Range**: Test from 1 to 16 threads
+- **Thread Step**: Control granularity of testing (e.g., test every thread count or every 2 threads)
+- **Task Count**: Specify number of tasks for consistent benchmarking
+- **Algorithm Selection**: Compare SJF, Round Robin, and Priority scheduling
+
+#### 2. Performance Metrics
+
+**Execution Time**
+- Measures total time to complete all tasks
+- Shows direct impact of parallelization
+- Expected: Decreases as threads increase
+
+**Speedup Factor**
+```
+Speedup = T(1) / T(n)
+where T(1) = single-threaded time
+      T(n) = n-threaded time
+```
+- Compares performance against baseline (single thread)
+- Ideal speedup = number of threads
+- Real-world speedup < ideal due to overhead
+
+**Thread Efficiency**
+```
+Efficiency = (Speedup / Thread Count) × 100%
+```
+- Measures how effectively threads are utilized
+- 100% = perfect parallelization
+- Typically decreases as thread count increases
+
+**CPU Utilization**
+- Percentage of CPU time actively processing tasks
+- Higher values indicate better resource usage
+- Algorithm-dependent based on task characteristics
+
+**Throughput**
+- Tasks completed per second
+- Should increase with thread count
+- Indicates overall system productivity
+
+**Average Waiting Time**
+- Time tasks spend waiting before execution
+- Should decrease with more threads
+- Indicates scheduling efficiency
+
+#### 3. Visual Analytics
+
+The comparison panel provides six interactive charts:
+
+1. **Execution Time vs Threads**: Shows time reduction with parallelization
+2. **Speedup Chart**: Compares actual vs ideal linear speedup
+3. **Efficiency Chart**: Tracks thread utilization percentage
+4. **CPU Utilization**: Shows processor usage patterns
+5. **Throughput**: Displays tasks/second across thread counts
+6. **Waiting Time**: Shows how queuing delays change
+
+#### 4. Key Insights
+Automatically identifies:
+- Best performing algorithm at maximum threads
+- Maximum speedup achieved across all tests
+- Peak thread efficiency observed
+- Average performance improvement percentage
+
+### How It Works
+
+**Frontend (`comparison.html` + `comparison.js`)**
+1. User configures test parameters
+2. JavaScript generates test tasks
+3. Iterates through thread counts for each algorithm
+4. Calls backend API for each configuration
+5. Collects and processes results
+6. Generates visualizations using Chart.js
+
+**Backend API (`/api/comparison/execute`)**
+```python
+@app.route('/api/comparison/execute', methods=['POST'])
+def execute_comparison():
+    # Receives: algorithm, threadCount, taskFile
+    # Executes: C++ scheduler with specified parameters
+    # Returns: Performance metrics
+```
+
+**C++ Scheduler Enhancement**
+```cpp
+// Now accepts thread count as parameter
+int main(int argc, char* argv[]) {
+    // argv[1] = algorithm (sjf/rr/priority)
+    // argv[2] = input file path
+    // argv[3] = thread count (1-16)
+    
+    Scheduler scheduler(algo, threadCount, quantum);
+    // Creates threadCount worker threads
+}
+```
+
+### Usage Example
+
+```javascript
+// Frontend initiates comparison test
+const config = {
+    minThreads: 1,
+    maxThreads: 8,
+    threadStep: 1,
+    algorithms: ['sjf', 'rr', 'priority']
+};
+
+// For each algorithm and thread count:
+for (let threads = 1; threads <= 8; threads++) {
+    const result = await runTest('sjf', threads, tasks);
+    // Collects: executionTime, cpuUtil, throughput, etc.
+}
+
+// Calculate speedup and efficiency
+results.forEach(r => {
+    r.speedup = baselineTime / r.executionTime;
+    r.efficiency = (r.speedup / r.threads) * 100;
+});
+```
+
+### Expected Results
+
+**Typical Patterns**:
+
+1. **Execution Time Curve**
+   - Steep decrease: 1 → 4 threads (approximately linear)
+   - Moderate decrease: 4 → 8 threads (diminishing returns)
+   - Plateau: Beyond optimal thread count
+
+2. **Speedup Curve**
+   - Initially follows ideal linear speedup
+   - Diverges at higher thread counts
+   - Limited by sequential portions (Amdahl's Law)
+
+3. **Efficiency Decline**
+   - Starts at 100% (single thread)
+   - Decreases to 70-80% (2-4 threads)
+   - May drop to 50-60% (8+ threads)
+
+**Algorithm Comparison**:
+- **SJF**: Often best speedup, efficient parallelization
+- **Round Robin**: Moderate speedup, fair distribution
+- **Priority**: Variable based on priority distribution
+
+### Educational Value
+
+This feature demonstrates:
+1. **Amdahl's Law**: Theoretical limits of parallelization
+2. **Parallel Overhead**: Cost of thread coordination
+3. **Resource Contention**: Competition for shared resources
+4. **Load Balancing**: Distribution of work across threads
+5. **Performance Analysis**: Measuring and comparing efficiency
+
+### Access
+Navigate to: `frontend/comparison.html`
+Or click **"Comparison"** in the navigation menu
+
+For detailed usage instructions, see [COMPARISON_FEATURE.md](COMPARISON_FEATURE.md)
+
+---
 
 ### 3. **Thread Synchronization**
 
